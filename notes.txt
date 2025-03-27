@@ -1,0 +1,26 @@
+Data: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE273116
+
+DESeq2 Vignette: https://www.bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html
+
+Outline
+
+Data Input
+Read the count matrix and metadata (sample information) using pandas.
+
+Normalization
+Calculate size factors for normalization to adjust for sequencing depth.
+
+Dispersion Estimation
+Estimate the dispersion parameters for the count data.
+
+Model Fitting
+Fit the negative binomial generalized linear model for each gene.1
+
+Differential Expression Testing2
+Perform hypothesis testing to identify differentially expressed genes.1
+
+Output and Visualization
+Store the results in a pandas DataFrame and create plots using matplotlib (optional, though not specified in your query) or pandas plotting capabilities.
+
+
+
