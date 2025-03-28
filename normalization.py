@@ -4,25 +4,28 @@ number of total counts which may cause downstream problems. We will normalize to
 so they are even across the board.
 
 Steps are:
-- Calculating the mean of counts for each gene
+- Calculating the geometric mean of counts for each gene
 - Dividing the counts of each gene by its geometric mean across samples
-- Taking the median of these ratios to derive size factors that are used to scale the counts.
+- Taking the median of these ratios by sample to derive size factors
+- Divide raw counts by sample size factors to get the normalized matrix
 '''
 
 import pandas as pd
 import numpy as np
 
-def normalization(raw_counts):
+def calculate_geometric_means(raw_counts: pd.DataFrame):
+    log_df = np.log(raw_counts.replace(0, np.nan))
+    geo_means = np.exp(log_df.mean(axis=1, skipna=True))
+    return(geo_means)
 
-    # The geometric mean of these counts is computed for each gene. 
-    # This is achieved using the natural logarithm to mitigate extreme values and then exponentiating the average of these logarithms. 
-    # This step helps standardize counts for genes across samples.
-    geometric_means = np.exp(np.log(raw_counts).mean(axis=1))
-    print(geometric_means)
+def calculate_ratios(raw_counts: pd.DataFrame, geo_means: pd.Series):
+    ratios = raw_counts.divide(geo_means, axis=0)
+    return(ratios)
 
-    # Each gene's count in the data frame is divided by its geometric mean.
-    # This division adjusts the counts according to the central tendency specific to the gene.
-    size_factors = raw_counts.divide(geometric_means, axis=0)
-    print(size_factors)
+def estimate_size_factors(ratios: pd.DataFrame):
+    size_factors = ratios.median(axis=0)
+    return(size_factors)
 
-    return size_factors.median(axis=1)
+def normalize_counts(raw_counts: pd.DataFrame, size_factors: pd.Series):
+    norm_counts = raw_counts.divide(size_factors, axis=1)
+    return(norm_counts)
