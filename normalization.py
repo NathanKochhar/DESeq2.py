@@ -29,3 +29,10 @@ def estimate_size_factors(ratios: pd.DataFrame):
 def normalize_counts(raw_counts: pd.DataFrame, size_factors: pd.Series):
     norm_counts = raw_counts.divide(size_factors, axis=1)
     return(norm_counts)
+
+def run_normalization(raw_counts: pd.DataFrame):
+    geo_means = calculate_geometric_means(raw_counts)
+    ratios = calculate_ratios(raw_counts, geo_means)
+    size_factors = estimate_size_factors(ratios)
+    norm_counts = normalize_counts(raw_counts, size_factors)
+    return(norm_counts)
