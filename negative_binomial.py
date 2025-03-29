@@ -6,7 +6,6 @@ negative_binomial.py
 import pandas as pd
 import numpy as np
 import math
-from decimal import Decimal
 
 def nb_variance(mu: np.ndarray, alpha: np.ndarray):
     nb_variance = (mu) + (alpha*(mu**2))

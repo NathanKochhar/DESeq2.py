@@ -35,4 +35,4 @@ def run_normalization(raw_counts: pd.DataFrame):
     ratios = calculate_ratios(raw_counts, geo_means)
     size_factors = estimate_size_factors(ratios)
     norm_counts = normalize_counts(raw_counts, size_factors)
-    return(norm_counts)
+    return(norm_counts, size_factors)
