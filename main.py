@@ -53,8 +53,7 @@ print(initialize_mu)'''
 weights = glm.calculate_weights(initialize_mu, raw_dispersion)
 print(weights)'''
 
-
-fit_glm = glm.fit_glm_nb(filtered_matrix, design_matrix, raw_dispersion, size_factors, max_iter=30, tol=1e-5)
+fit_glm = glm.fit_glm_nb(filtered_matrix, design_matrix, raw_dispersion, size_factors, max_iter=50, tol=1e-5)
 print("\n THIS IS MY FIT NB GLM: \n")
 print(fit_glm)
 
